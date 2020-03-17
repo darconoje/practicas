@@ -15,20 +15,20 @@ public class FuncionesEjercicio1 {
 	public JSONArray devolverMarcaModelo(JSONArray array, int liminferior, int limsuperior) {
 		if (liminferior <= 0 || limsuperior > array.length() - 1 || liminferior > limsuperior) {
 			return null;
-		} else {
-			JSONArray arrayReturn = new JSONArray();
-			// se recorre el array de coches desde el limite superior al limite superior
-			for (int i = liminferior - 1; i < limsuperior; i++) {
-				JSONObject objReturn = new JSONObject();
-				JSONObject jObj = array.getJSONObject(i);
-				// se recoge en un jsonobject la marca y modelo del coche
-				objReturn.put("make", jObj.getJSONObject("Identification").getString("Make"));
-				objReturn.put("model", jObj.getJSONObject("Identification").getString("ID"));
-				// se añade el jsonobject al jsonarray de retorno
-				arrayReturn.put(objReturn);
-			}
-			return arrayReturn;
 		}
+		JSONArray arrayReturn = new JSONArray();
+		// se recorre el array de coches desde el limite superior al limite superior
+		for (int i = liminferior - 1; i < limsuperior; i++) {
+			JSONObject objReturn = new JSONObject();
+			JSONObject jObj = array.getJSONObject(i);
+			// se recoge en un jsonobject la marca y modelo del coche
+			objReturn.put("make", jObj.getJSONObject("Identification").getString("Make"));
+			objReturn.put("model", jObj.getJSONObject("Identification").getString("ID"));
+			// se añade el jsonobject al jsonarray de retorno
+			arrayReturn.put(objReturn);
+		}
+		return arrayReturn;
+
 	}
 
 	// Funcion 2 - Devuelve marca y modelo de los primeros n coches del array de
@@ -36,29 +36,29 @@ public class FuncionesEjercicio1 {
 	public JSONArray primerosPotencia(JSONArray array, int n, int potencia) {
 		if (n <= 0 || potencia <= 0 || n > array.length() - 1) {
 			return null;
-		} else {
-			JSONArray arrayReturn = new JSONArray();
-			// se inicia el contador a 1
-			int contador = 1;
-			// se recorre el array de coches
-			for (int i = 0; i < array.length(); i++) {
-				// si el contador es menor o igual al n indicado y la potencia es mayor o igual
-				// que la indicada recoge el modelo y marca del coche en un jsonobject
-				int objeto = ((JSONObject) array.get(i)).getJSONObject("Engine Information")
-						.getJSONObject("Engine Statistics").getInt("Horsepower");
-				if (objeto >= potencia && contador <= n) {
-
-					JSONObject objReturn = new JSONObject();
-					JSONObject jObj = array.getJSONObject(i);
-					objReturn.put("make", jObj.getJSONObject("Identification").getString("Make"));
-					objReturn.put("model", jObj.getJSONObject("Identification").getString("ID"));
-					// se añade el jsonobject al jsonarray de retorno
-					arrayReturn.put(objReturn);
-					contador++;
-				}
-			}
-			return arrayReturn;
 		}
+		JSONArray arrayReturn = new JSONArray();
+		// se inicia el contador a 1
+		int contador = 1;
+		// se recorre el array de coches
+		for (int i = 0; i < array.length(); i++) {
+			// si el contador es menor o igual al n indicado y la potencia es mayor o igual
+			// que la indicada recoge el modelo y marca del coche en un jsonobject
+			int objeto = ((JSONObject) array.get(i)).getJSONObject("Engine Information")
+					.getJSONObject("Engine Statistics").getInt("Horsepower");
+			if (objeto >= potencia && contador <= n) {
+
+				JSONObject objReturn = new JSONObject();
+				JSONObject jObj = array.getJSONObject(i);
+				objReturn.put("make", jObj.getJSONObject("Identification").getString("Make"));
+				objReturn.put("model", jObj.getJSONObject("Identification").getString("ID"));
+				// se añade el jsonobject al jsonarray de retorno
+				arrayReturn.put(objReturn);
+				contador++;
+			}
+		}
+		return arrayReturn;
+
 	}
 
 	// Funcion 3 - Devuelve marca y modelo de los coches segun su tipo de
@@ -129,24 +129,26 @@ public class FuncionesEjercicio1 {
 		JSONArray arrayReturn = new JSONArray();
 		if (n <= 0 || anno < 2000 || n > array.length() - 1) {
 			return null;
-		} else {
-			int contador = 1;
-			for (int i = 0; contador <= n; i++) {
-				int object = ((JSONObject) array.get(i)).getJSONObject("Identification").getInt("Year");
-				if (object == anno) {
-					JSONObject objReturn = new JSONObject();
-					JSONObject jObj = array.getJSONObject(i);
-					objReturn.put("make", jObj.getJSONObject("Identification").getString("Make"));
-					objReturn.put("model", jObj.getJSONObject("Identification").getString("ID"));
-					objReturn.put("horsepower", jObj.getJSONObject("Engine Information")
-							.getJSONObject("Engine Statistics").getInt("Horsepower"));
-					// se añade el jsonobject al jsonarray de retorno
-					arrayReturn.put(objReturn);
-					contador++;
-				}
-			}
 		}
+		int contador = 1;
+		for (int i = 0; contador <= n; i++) {
+			// recoge marca, modelo y potencia de coche en un jsonobject de los que coincidan con el
+			// año del modelo
+			int object = ((JSONObject) array.get(i)).getJSONObject("Identification").getInt("Year");
+			if (object == anno) {
+				JSONObject objReturn = new JSONObject();
+				JSONObject jObj = array.getJSONObject(i);
+				objReturn.put("make", jObj.getJSONObject("Identification").getString("Make"));
+				objReturn.put("model", jObj.getJSONObject("Identification").getString("ID"));
+				objReturn.put("horsepower", jObj.getJSONObject("Engine Information").getJSONObject("Engine Statistics")
+						.getInt("Horsepower"));
+				// se añade el jsonobject al jsonarray de retorno
+				arrayReturn.put(objReturn);
+				contador++;
+			}
 
+		}
+		// se pasa el jsonarray a tipo arraylist para poder usar comparadores
 		List<JSONObject> jsonValues = new ArrayList<JSONObject>();
 		for (int i = 0; i < arrayReturn.length(); i++) {
 			jsonValues.add(arrayReturn.getJSONObject(i));
@@ -167,7 +169,7 @@ public class FuncionesEjercicio1 {
 				return valB.compareTo(valA);
 			}
 		});
-
+		// se crea variable jsonarray y se llena con el resultante arraylist, se retorna esta variable 
 		JSONArray arraySorted = new JSONArray();
 		for (int i = 0; i < jsonValues.size(); i++) {
 			arraySorted.put(jsonValues.get(i));
@@ -180,20 +182,20 @@ public class FuncionesEjercicio1 {
 		JSONArray arrayReturn = new JSONArray();
 		if (indice < 0) {
 			return null;
-		} else {
-			// se recorre el array de coches
-			for (int i = 0; i < array.length(); i++) {
-				char c = ((JSONObject) array.get(i)).getJSONObject("Identification").getString("ID").charAt(indice);
-				int ascii = (int) c;
-				if (ascii >= 48 && ascii <= 57) {
-					JSONObject objReturn = new JSONObject();
-					JSONObject jObj = array.getJSONObject(i);
-					// se recoge en un jsonobject el modelo del coche
-					objReturn.put("model", jObj.getJSONObject("Identification").getString("ID"));
-					// se añade el jsonobject al jsonarray de retorno
-					arrayReturn.put(objReturn);
-				}
+		}
+		// se recorre el array de coches
+		for (int i = 0; i < array.length(); i++) {
+			char c = ((JSONObject) array.get(i)).getJSONObject("Identification").getString("ID").charAt(indice);
+			int ascii = (int) c;
+			if (ascii >= 48 && ascii <= 57) {
+				JSONObject objReturn = new JSONObject();
+				JSONObject jObj = array.getJSONObject(i);
+				// se recoge en un jsonobject el modelo del coche
+				objReturn.put("model", jObj.getJSONObject("Identification").getString("ID"));
+				// se añade el jsonobject al jsonarray de retorno
+				arrayReturn.put(objReturn);
 			}
+
 		}
 		return arrayReturn;
 	}
