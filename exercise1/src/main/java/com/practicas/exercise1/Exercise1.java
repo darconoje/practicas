@@ -40,6 +40,25 @@ public class Exercise1 {
   System.out.println("Funcion 5:");
   boolean diesel = true;
   System.out.println(funciones.esDiesel(array, diesel));
+  
+  //Funcion 6 - Devuelve las n primeras marcas y modelos de coches de un año determinado, ordenados por potencia (mayor a menor)
+  System.out.println("Funcion 6:");
+  int n2 = 30;
+  int anno = 2011;
+  System.out.println(funciones.cochesPorAnno(array,n2,anno));
+  
+  //Funcion 7 - Devuelve modelos cuyo caracter en un indice dado sea un numero
+  System.out.println("Funcion 7:");
+  int indice = 10;
+  System.out.println(funciones.caracterNumerico(array,indice));
+  
+  //Funcion 8 - Devuelve modelos y marcas de los coches que sean o no hibridos
+  System.out.println("Funcion 8:");
+  boolean hibrido = true;
+  System.out.println(funciones.esHibrido(array,hibrido));
+  
+  //Funcion 9 - 
+  
  }
-
+ 
 }
