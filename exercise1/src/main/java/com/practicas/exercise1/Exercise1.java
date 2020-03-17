@@ -28,7 +28,8 @@ public class Exercise1 {
 		int potencia = 150;
 		System.out.println(funciones.primerosPotencia(array, n, potencia));
 
-		// Funcion 3 - Devuelve marca y modelo de los coches segun su tipo de clasificacion
+		// Funcion 3 - Devuelve marca y modelo de los coches segun su tipo de
+		// clasificacion
 		System.out.println("Funcion 3:");
 		String clasificacion = "Automatic transmission";
 		System.out.println(funciones.tipoClasificacion(array, clasificacion));
@@ -36,12 +37,12 @@ public class Exercise1 {
 		// Funcion 4 - Devuelve marca y modelo de los coches segun su tipo de traccion
 		System.out.println("Funcion 4:");
 		String traccion = "Rear-wheel drive";
-		System.out.println(funciones.esTraccionTrasera(array, traccion));
+		System.out.println(funciones.tipoTraccion(array, traccion));
 
 		// Funcion 5 - Devuelve marca y modelo de los coches segun su tipo de fuel
 		System.out.println("Funcion 5:");
 		String fuel = "Diesel fuel";
-		System.out.println(funciones.esDiesel(array, fuel));
+		System.out.println(funciones.tipoFuel(array, fuel));
 
 		// Funcion 6 - Devuelve las n primeras marcas y modelos de coches de un año
 		// determinado, ordenados por potencia (mayor a menor)
@@ -60,7 +61,17 @@ public class Exercise1 {
 		boolean hibrido = true;
 		System.out.println(funciones.esHibrido(array, hibrido));
 
-		// Funcion 10 -
+		// Funcion 10 - Devuelve modelos y marcas de los coches segun la cantidad de
+		// velocidades
+		System.out.println("Funcion 10:");
+		int velocidades = 8;
+		System.out.println(funciones.cantidadVelocidades(array, velocidades));
+
+		// Funcion 11 - Devuelve modelos y marcas de los coches que tengan un consumo en
+		// ciudad menor a una cantidad indicada, ordenandolos de mayor a menor consumo
+		System.out.println("Funcion 11:");
+		int cantidad = 18;
+		System.out.println(funciones.consumoCiudad(array,cantidad));
 
 	}
 
