@@ -49,7 +49,8 @@ public class Exercise1 {
 		System.out.println("Funcion 6:");
 		int n2 = 30;
 		int anno = 2011;
-		System.out.println(funciones.cochesPorAnno(array, n2, anno));
+		boolean ordendescendente = true;
+		System.out.println(funciones.cochesPorAnno(array, n2, anno, ordendescendente));
 
 		// Funcion 7 - Devuelve modelos cuyo caracter en un indice dado sea un numero
 		System.out.println("Funcion 7:");
@@ -64,15 +65,22 @@ public class Exercise1 {
 		// Funcion 10 - Devuelve modelos y marcas de los coches segun la cantidad de
 		// velocidades
 		System.out.println("Funcion 10:");
-		int velocidades = 8;
+		int velocidades = 6;
 		System.out.println(funciones.cantidadVelocidades(array, velocidades));
 
 		// Funcion 11 - Devuelve modelos y marcas de los coches que tengan un consumo en
-		// ciudad menor a una cantidad indicada, ordenandolos de mayor a menor consumo
+		// ciudad menor o mayr a una cantidad indicada, ordenandolos segun se haya indicado
 		System.out.println("Funcion 11:");
-		int cantidad = 18;
-		System.out.println(funciones.consumoCiudad(array,cantidad));
+		int cantidad = 25;
+		boolean cantidadmenor = true;
+		boolean ordendescendente2 = true;
+		System.out.println(funciones.consumoCiudad(array, cantidad, cantidadmenor, ordendescendente2));
 
+		// Funcion 12 - Devuelve modelos y marcas de los coches que contengan una
+		// determinada cadena de caracteres dentro de su engine type
+		System.out.println("Funcion 12:");
+		String caracteres = "Ford";
+		System.out.println(funciones.incluyeEnMotor(array,caracteres));
 	}
 
 }

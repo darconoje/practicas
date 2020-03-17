@@ -64,7 +64,7 @@ public class FuncionesEjercicio1 {
 	// Funcion 3 - Devuelve marca y modelo de los coches segun su tipo de
 	// clasificacion
 	public JSONArray tipoClasificacion(JSONArray array, String clasificacion) {
-		if(clasificacion == null || clasificacion.equals("")) {
+		if (clasificacion == null || clasificacion.equals("")) {
 			return null;
 		}
 		JSONArray arrayReturn = new JSONArray();
@@ -88,7 +88,7 @@ public class FuncionesEjercicio1 {
 	// Funcion 4 - Devuelve marca y modelo de los coches segun su tipo de traccion
 	// trasera
 	public JSONArray tipoTraccion(JSONArray array, String traccion) {
-		if(traccion == null || traccion.equals("")) {
+		if (traccion == null || traccion.equals("")) {
 			return null;
 		}
 		JSONArray arrayReturn = new JSONArray();
@@ -111,7 +111,7 @@ public class FuncionesEjercicio1 {
 
 	// Funcion 5 - Devuelve marca y modelo de los coches segun su tipo de fuel
 	public JSONArray tipoFuel(JSONArray array, String fuel) {
-		if(fuel == null || fuel.equals("")) {
+		if (fuel == null || fuel.equals("")) {
 			return null;
 		}
 		JSONArray arrayReturn = new JSONArray();
@@ -133,8 +133,8 @@ public class FuncionesEjercicio1 {
 	}
 
 	// Funcion 6 - Devuelve las n primeras marcas y modelos de coches de un año
-	// determinado, ordenados por potencia (mayor a menor)
-	public JSONArray cochesPorAnno(JSONArray array, int n, int anno) {
+	// determinado, ordenados por potencia
+	public JSONArray cochesPorAnno(JSONArray array, int n, int anno, boolean ordendescendente) {
 		JSONArray arrayReturn = new JSONArray();
 		if (n <= 0 || anno < 2000 || n > array.length() - 1) {
 			return null;
@@ -176,7 +176,18 @@ public class FuncionesEjercicio1 {
 				valA = (int) a.get(HORSEPOWER);
 				valB = (int) b.get(HORSEPOWER);
 
-				return valB.compareTo(valA);
+				int mult = -1;
+				if (!ordendescendente) {
+					mult = 1;
+				}
+
+				if (valA < valB) {
+					return mult * -1;
+				} else if (valA > valB) {
+					return mult * 1;
+				} else {
+					return mult * (a.getString("model").compareTo(b.getString("model")));
+				}
 			}
 		});
 		// se crea variable jsonarray y se llena con el resultante arraylist, se retorna
@@ -273,8 +284,9 @@ public class FuncionesEjercicio1 {
 	}
 
 	// Funcion 11 - Devuelve modelos y marcas de los coches que tengan un consumo en
-	// ciudad menor a una cantidad indicada, ordenandolos de mayor a menor consumo
-	public JSONArray consumoCiudad(JSONArray array, int cantidad) {
+	// ciudad menor o mayr a una cantidad indicada, ordenandolos segun se haya
+	// indicado
+	public JSONArray consumoCiudad(JSONArray array, int cantidad, boolean cantidadmenor, boolean ordendescendente) {
 		if (cantidad <= 0) {
 			return null;
 		}
@@ -284,22 +296,35 @@ public class FuncionesEjercicio1 {
 			// recoge marca y modelo de coche en un jsonobject de los que tengan una
 			// cantidad de consumo menor a lo indicado
 			int object = ((JSONObject) array.get(i)).getJSONObject("Fuel Information").getInt("City mph");
-			if(object < cantidad) {
-				JSONObject objReturn = new JSONObject();
-				JSONObject jObj = array.getJSONObject(i);
-				objReturn.put("make", jObj.getJSONObject("Identification").getString("Make"));
-				objReturn.put("model", jObj.getJSONObject("Identification").getString("ID"));
-				objReturn.put("mph", jObj.getJSONObject("Fuel Information").getInt("City mph"));
-				// se añade el jsonobject al jsonarray de retorno
-				arrayReturn.put(objReturn);
+			if (cantidadmenor == true) {
+				if (object < cantidad) {
+					JSONObject objReturn = new JSONObject();
+					JSONObject jObj = array.getJSONObject(i);
+					objReturn.put("make", jObj.getJSONObject("Identification").getString("Make"));
+					objReturn.put("model", jObj.getJSONObject("Identification").getString("ID"));
+					objReturn.put("mph", jObj.getJSONObject("Fuel Information").getInt("City mph"));
+					// se añade el jsonobject al jsonarray de retorno
+					arrayReturn.put(objReturn);
+				}
+			} else {
+				if (object > cantidad) {
+					JSONObject objReturn = new JSONObject();
+					JSONObject jObj = array.getJSONObject(i);
+					objReturn.put("make", jObj.getJSONObject("Identification").getString("Make"));
+					objReturn.put("model", jObj.getJSONObject("Identification").getString("ID"));
+					objReturn.put("mph", jObj.getJSONObject("Fuel Information").getInt("City mph"));
+					// se añade el jsonobject al jsonarray de retorno
+					arrayReturn.put(objReturn);
+				}
 			}
+
 		}
 		// se pasa el jsonarray a tipo arraylist para poder usar comparadores
 		List<JSONObject> jsonValues = new ArrayList<JSONObject>();
 		for (int i = 0; i < arrayReturn.length(); i++) {
 			jsonValues.add(arrayReturn.getJSONObject(i));
 		}
-		
+
 		Collections.sort(jsonValues, new Comparator<JSONObject>() {
 
 			private static final String MPH = "mph";
@@ -312,9 +337,21 @@ public class FuncionesEjercicio1 {
 				valA = (int) a.get(MPH);
 				valB = (int) b.get(MPH);
 
-				return valB.compareTo(valA);
+				int mult = -1;
+				if (!ordendescendente) {
+					mult = 1;
+				}
+
+				if (valA < valB) {
+					return mult * -1;
+				} else if (valA > valB) {
+					return mult * 1;
+				} else {
+					return mult * (a.getString("model").compareTo(b.getString("model")));
+				}
+
 			}
-		});		
+		});
 		// se crea variable jsonarray y se llena con el resultante arraylist, se retorna
 		// esta variable
 		JSONArray arraySorted = new JSONArray();
@@ -322,6 +359,35 @@ public class FuncionesEjercicio1 {
 			arraySorted.put(jsonValues.get(i));
 		}
 		return arraySorted;
+	}
+
+	// Funcion 12 - Devuelve modelos y marcas de los coches que contengan una
+	// determinada cadena de caracteres dentro de su engine type
+	public JSONArray incluyeEnMotor(JSONArray array, String caracteres) {
+		if (caracteres.length() == 0) {
+			return null;
+		}
+
+		JSONArray arrayReturn = new JSONArray();
+		// se crea un arraylist donde incluir la lista de coches para posteriormente
+		// poder usar el metodo contains
+		List<JSONObject> jsonValues = new ArrayList<JSONObject>();
+		for (int i = 0; i < array.length(); i++) {
+			jsonValues.add(array.getJSONObject(i));
+		}
+		// se recorre el array de coches
+		for (int i = 0; i < array.length(); i++) {
+			String object = jsonValues.get(i).getJSONObject("Engine Information").getString("Engine Type");
+			if(object.contains(caracteres)) {
+				JSONObject objReturn = new JSONObject();
+				JSONObject jObj = array.getJSONObject(i);
+				objReturn.put("make", jObj.getJSONObject("Identification").getString("Make"));
+				objReturn.put("model", jObj.getJSONObject("Identification").getString("ID"));
+				// se añade el jsonobject al jsonarray de retorno
+				arrayReturn.put(objReturn);				
+			}
+		}
+		return arrayReturn;
 	}
 
 }
