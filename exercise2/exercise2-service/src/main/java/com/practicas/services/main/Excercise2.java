@@ -17,11 +17,11 @@ public class Excercise2 {
 		System.out.println(listCar.get(0));
 		
 		System.out.println("Funcion rango:");
-		System.out.println(carservice.devolverRango(listCar, 1, 2));
+		System.out.println(carservice.devolverRango(1, 2));
 		System.out.println("Funcion n coches con potencia mayor a determinada:");
-		System.out.println(carservice.primerosPotencia(listCar, 10, 275));
+		System.out.println(carservice.primerosPotencia(10, 275));
 		System.out.println("Funcion tipo de clasificacion:");
-		System.out.println(carservice.tipoClasificacion(listCar,"Automatic transmission"));
+		System.out.println(carservice.tipoClasificacion("Automatic transmission"));
 
 	}
 
