@@ -75,7 +75,7 @@ public class EngineInformation {
     
 	@Override
 	public String toString() {
-		return "{transmission: "+transmission+",enginetype: "+enginetype+",enginestatistics: "+enginestatistics.toString()+"}";
+		return "{transmission: "+transmission+",enginetype: "+enginetype+",enginestatistics: "+enginestatistics.toString()+",hybrid:"+hybrid+",numberofforwardgears:"+numberofforwardgears+",driveline:"+driveline+"}";
 	}	
 	
 }

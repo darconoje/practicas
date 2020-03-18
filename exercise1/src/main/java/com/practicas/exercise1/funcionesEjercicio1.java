@@ -207,7 +207,7 @@ public class FuncionesEjercicio1 {
 		}
 		// se recorre el array de coches
 		for (int i = 0; i < array.length(); i++) {
-			char c = ((JSONObject) array.get(i)).getJSONObject("Identification").getString("ID").charAt(indice);
+			char c = ((JSONObject) array.get(i)).getJSONObject("Identification").getString("ID").charAt(indice+1);
 			int ascii = (int) c;
 			if (ascii >= 48 && ascii <= 57) {
 				JSONObject objReturn = new JSONObject();
