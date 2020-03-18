@@ -1,14 +1,17 @@
 package com.practicas.model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class Car {
 
 	private EngineInformation engineinformation;
 	private Dimensions dimensions;
 	private Identification identification;
 	private FuelInformation fuelinformation;
-	
+
 	public Car() {
-		
+
 	}
 
 	public Car(EngineInformation engineinformation, Dimensions dimensions, Identification identification,
@@ -54,9 +57,8 @@ public class Car {
 
 	@Override
 	public String toString() {
-		return "{engineinformation: "+engineinformation+",identification: "+identification.toString()+",dimensions: "+dimensions.toString()+",fuelinformation: "+fuelinformation.toString()+"}";
+		return "{engineinformation: " + engineinformation + ",identification: " + identification.toString()
+				+ ",dimensions: " + dimensions.toString() + ",fuelinformation: " + fuelinformation.toString() + "}";
 	}
-	
-	
-	
+
 }
