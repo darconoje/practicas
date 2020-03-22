@@ -3,6 +3,7 @@ package com.practicas.services.main;
 import java.util.List;
 
 import com.practicas.model.Car;
+import com.practicas.services.CarPredicate;
 import com.practicas.services.CarService;
 import com.practicas.services.data.DatabaseJson;
 
@@ -19,11 +20,12 @@ public class Excercise2 {
 		System.out.println("Funcion rango:");
 		int liminferior = 1;
 		int limsuperior = 2;
-		System.out.println(carservice.devolverRango(liminferior, limsuperior));
+		System.out.println(carservice.getCars(liminferior, limsuperior));
 		System.out.println("Funcion n coches con potencia mayor a determinada:");
 		int n = 10;
 		int potencia = 275;
-		System.out.println(carservice.primerosPotencia(n, potencia));
+		boolean mayor = true;
+		System.out.println(carservice.primerosPotencia(n, potencia, mayor));
 		System.out.println("Funcion de coches por tipo de clasificacion:");
 		String clasificacion = "Automatic transmission";
 		System.out.println(carservice.tipoClasificacion(clasificacion));
@@ -40,7 +42,7 @@ public class Excercise2 {
 		System.out.println(carservice.cochesPorAnno(n2, anno, ordendescendente));
 		System.out.println("Funcion de coches con caracter numerico en modelo en un indice dado:");
 		int indice = 10;
-		System.out.println(carservice.caracterNumerico(indice));
+		System.out.println(carservice.caracterNumericoEnId(indice));
 		System.out.println("Funcion de coches que sean o no hibridos:");
 		boolean hibrido = true;
 		System.out.println(carservice.esHibrido(hibrido));
@@ -56,6 +58,13 @@ public class Excercise2 {
 		System.out.println("Funcion de coches con determinada cadena de caracteres en su engine type");
 		String caracteres = "Ford";
 		System.out.println(carservice.incluyeEnMotor(caracteres));
-	}
+		System.out.println("Funcion que devuelve marcas de los coches");
+		System.out.println(carservice.getCarsMakes());
+		System.out.println("Funcion que devuelve años de los coches");
+		System.out.println(carservice.getCarsYears());
+		System.out.println("Funcion obtener numero de coches que cumplen predicado");
+		CarPredicate p = new CarPredicate();
+		System.out.println(carservice.getCarsCount(p.cochesPorAnno(2010)));
+	}	
 
 }

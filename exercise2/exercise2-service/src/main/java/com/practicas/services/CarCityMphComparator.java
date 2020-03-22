@@ -4,12 +4,10 @@ import java.util.Comparator;
 
 import com.practicas.model.Car;
 
-public class CarCityMphComparator implements Comparator<Car> {
-
-	private boolean desc = true;
+public class CarCityMphComparator extends CarComparator implements Comparator<Car> {
 
 	public CarCityMphComparator(boolean desc) {
-		this.desc = desc;
+		super.desc = desc;
 	}
 
 	@Override

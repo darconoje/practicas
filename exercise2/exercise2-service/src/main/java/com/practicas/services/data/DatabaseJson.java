@@ -39,7 +39,7 @@ public class DatabaseJson {
     private void loadJSONDB() throws IOException {
 
         InputStream inputStream = this.getClass()
-                .getClassLoader().getResourceAsStream("cars.json");
+                .getClassLoader().getResourceAsStream("cars-id.json");
 
         if (inputStream == null) return;
 
