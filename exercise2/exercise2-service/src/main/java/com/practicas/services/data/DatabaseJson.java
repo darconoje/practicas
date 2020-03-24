@@ -1,12 +1,8 @@
 package com.practicas.services.data;
 
-import org.json.JSONArray;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.practicas.model.Car;
-
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,12 +13,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import org.json.JSONArray;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.practicas.model.Car;
+
 public class DatabaseJson {
 
     private static JSONArray _jsonArray = new JSONArray();
 
     private static final Logger _log = Logger.getLogger(DatabaseJson.class.getName());
-
+    
+    private static DatabaseJson db;
+    
     private DatabaseJson() {
         try{
             loadJSONDB();
@@ -33,7 +37,10 @@ public class DatabaseJson {
 
     public static DatabaseJson loadDatabase() {
 
-        return new DatabaseJson();
+    	if(db == null) {
+    		db = new DatabaseJson();
+    	}
+        return db; 
     }
 
     private void loadJSONDB() throws IOException {
@@ -49,6 +56,23 @@ public class DatabaseJson {
         }
 
         _jsonArray = new JSONArray(jsonText.toString());
+    }
+    
+    
+    public static void saveFile(String newJsonFile) {
+    	
+    	BufferedWriter bufferWriter = null;
+    	try {
+    		FileWriter crunchifyWriter = new FileWriter("/Users/stejeros/Developer/source/practicas/exercise2/exercise2-service/src/main/resources/cars-id.json", true);
+
+			// Writes text to a character-output stream
+			bufferWriter = new BufferedWriter(crunchifyWriter);
+			bufferWriter.write(newJsonFile.toString());
+			bufferWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+		}
     }
 
     public JSONArray getData(){

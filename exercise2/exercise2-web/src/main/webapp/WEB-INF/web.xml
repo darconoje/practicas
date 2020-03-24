@@ -9,11 +9,11 @@
 	
 	<servlet>
 		<servlet-name>InitServlet</servlet-name>
-		<servlet-class>com.practicas.servlet.InitServlet</servlet-class>
+		<servlet-class>com.practicas.servlet.MainServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>InitServlet</servlet-name>
-		<url-pattern></url-pattern>
+		<url-pattern>/cars</url-pattern>
 	</servlet-mapping>
 
 
