@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CarService {
 
@@ -27,8 +28,10 @@ public class CarService {
 		if (end <= 0 || end > array.size()) {
 			end = array.size();
 		}
-
-		return array.subList(begin, end);
+		
+		CarPkComparator pkcomparator = new CarPkComparator(false);
+		List<Car> arraySorted = array.stream().sorted(pkcomparator).collect(Collectors.toList());
+		return arraySorted.subList(begin, end);
 
 	}
 
@@ -207,6 +210,51 @@ public class CarService {
 		}
 		return carsYears.stream().distinct().sorted().collect(Collectors.toList());
 	}
+	
+	public List<String> getCarsTransmissions(){
+		List<Car> cars = getCars(-1,-1);
+		List<String> carsTransmissions = new ArrayList<>();
+		for (int i = 0; i < cars.size(); i++) {
+			carsTransmissions.add(cars.get(i).getEngineinformation().getTransmission());
+		}
+		return carsTransmissions.stream().distinct().sorted().collect(Collectors.toList());
+	}
+	
+	public List<Integer> getCarsNumberOfForwardGears() {
+		List<Car> cars = getCars(-1, -1);
+		List<Integer> carsNumberOfForwardGears = new ArrayList<>();
+		for (int i = 0; i < cars.size(); i++) {
+			carsNumberOfForwardGears.add(cars.get(i).getEngineinformation().getNumberofforwardgears());
+		}
+		return carsNumberOfForwardGears.stream().distinct().sorted().collect(Collectors.toList());
+	}
+	
+	public List<String> getCarsDrivelines(){
+		List<Car> cars = getCars(-1,-1);
+		List<String> carsDrivelines = new ArrayList<>();
+		for (int i = 0; i < cars.size(); i++) {
+			carsDrivelines.add(cars.get(i).getEngineinformation().getDriveline());
+		}
+		return carsDrivelines.stream().distinct().sorted().collect(Collectors.toList());
+	}
+	
+	public List<String> getCarsClassifications(){
+		List<Car> cars = getCars(-1,-1);
+		List<String> carsClassifications = new ArrayList<>();
+		for (int i = 0; i < cars.size(); i++) {
+			carsClassifications.add(cars.get(i).getIdentification().getClassification());
+		}
+		return carsClassifications.stream().distinct().sorted().collect(Collectors.toList());
+	}	
+	
+	public List<String> getCarsFuelTypes(){
+		List<Car> cars = getCars(-1,-1);
+		List<String> carsFuelTypes = new ArrayList<>();
+		for (int i = 0; i < cars.size(); i++) {
+			carsFuelTypes.add(cars.get(i).getFuelinformation().getFueltype());
+		}
+		return carsFuelTypes.stream().distinct().sorted().collect(Collectors.toList());
+	}		
 
 	/**
 	 * Obtiene el número de coches que cumplen el predicado
@@ -224,5 +272,49 @@ public class CarService {
 		List<Car> cars = getCars(-1, -1);
 		return cars.stream().filter(c -> c.getPk() == pk).findFirst();
 	}
+	
+	/**
+	 * Obtiene los coches que cumplen un predicado
+	 * @param start inicio
+	 * @param end fin
+	 * @param p Predicado
+	 * @return
+	 */
+	public List<Car> getCars(int start, int end, List<Predicate<Car>> ps) {
+		
+		assert ps != null;
+		Stream<Car> stream = getCars(-1, -1).stream();
+		Stream<Car> stream2 = getCars(-1, -1).stream();
+		for(Predicate<Car> p: ps) {
+			stream = stream.filter(p);
+			stream2 = stream2.filter(p);
+		}
+		int count = (int) stream2.count();
+		List<Car> cars = new ArrayList<Car>();
+		if(count<10) {
+			end = count;
+			cars = stream.collect(Collectors.toList()).subList(0, end);
+		}else {
+			cars = stream.collect(Collectors.toList()).subList(start, end);		
+		}
+
+		return cars;
+	}
+	
+	/**
+	 * Obtiene el número de coches que cumplen el predicado
+	 * @param p
+	 * @return
+	 */
+	public long getCarsCount(List<Predicate<Car>> ps) {
+		
+		assert ps != null;
+		Stream<Car> stream = getCars(-1, -1).stream();
+		for(Predicate<Car> p: ps) {
+			stream = stream.filter(p);
+		}
+		return stream.count();
+	}
+	
 	public final long totalCar = getCars(-1,-1).parallelStream().count();
 }

@@ -53,4 +53,12 @@ public class CarPredicate {
 	public Predicate<Car> porPotenciaMenor(int potencia) {
 		return car -> car.getEngineinformation().getEnginestatistics().getHorsepower() < potencia;
 	}
+	
+	public Predicate<Car> porMarca(String marca){
+		return car -> car.getIdentification().getMake().equals(marca);	
+	}
+	
+	public Predicate<Car> porAnno(int anno){
+		return car -> car.getIdentification().getYear() == anno;
+	}
 }

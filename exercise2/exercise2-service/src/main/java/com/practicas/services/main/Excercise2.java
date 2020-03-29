@@ -65,6 +65,11 @@ public class Excercise2 {
 		System.out.println("Funcion obtener numero de coches que cumplen predicado");
 		CarPredicate p = new CarPredicate();
 		System.out.println(carservice.getCarsCount(p.cochesPorAnno(2010)));
+		System.out.println(carservice.getCarsTransmissions());
+		System.out.println(carservice.getCarsNumberOfForwardGears());
+		System.out.println(carservice.getCarsDrivelines());
+		System.out.println(carservice.getCarsClassifications());
+		System.out.println(carservice.getCarsFuelTypes());
 	}	
 
 }
