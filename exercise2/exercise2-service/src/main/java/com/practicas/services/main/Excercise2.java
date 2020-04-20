@@ -8,10 +8,12 @@ import com.practicas.services.CarService;
 import com.practicas.services.data.DatabaseJson;
 
 public class Excercise2 {
+	
+	public static CarService carservice;
 
 	public static void main(String[] args) {
 
-		CarService carservice = new CarService();
+		
 
 		List<Car> listCar = DatabaseJson.loadDatabase().getDataParsed();
 

@@ -61,4 +61,28 @@ public class CarPredicate {
 	public Predicate<Car> porAnno(int anno){
 		return car -> car.getIdentification().getYear() == anno;
 	}
+	
+	public Predicate<Car> porHibrido(boolean hibrido){
+		return car -> car.getEngineinformation().isHybrid() == hibrido;
+	}
+	
+	public Predicate<Car> porClasificacion(String clasificacion){
+		return car -> car.getIdentification().getClassification().equals(clasificacion);
+	}
+	
+	public Predicate<Car> porTipoFuel(String fuel) {
+		return car -> car.getFuelinformation().getFueltype().equals(fuel);
+	}
+	
+	public Predicate<Car> incluyeEnMarca(String caracteres) {
+		return car -> car.getIdentification().getMake().toLowerCase().contains(caracteres.toLowerCase());
+	}
+	
+	public Predicate<Car> incluyeEnModelo(String caracteres) {
+		return car -> car.getIdentification().getId().toLowerCase().contains(caracteres.toLowerCase());
+	}
+	
+	public Predicate<Car> incluyeEnModeloOMarca(String caracteres) {
+		return car -> car.getIdentification().getId().toLowerCase().contains(caracteres.toLowerCase())||car.getIdentification().getMake().toLowerCase().contains(caracteres.toLowerCase());
+	}
 }

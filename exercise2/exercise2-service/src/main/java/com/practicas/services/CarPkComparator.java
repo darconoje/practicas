@@ -15,9 +15,9 @@ public class CarPkComparator extends CarComparator implements Comparator<Car> {
 		Integer valA = car1.getPk();
 		Integer valB = car2.getPk();
 
-		int mult = -1;
+		int mult = 1;
 		if (!desc) {
-			mult = 1;
+			mult = -1;
 		}
 
 		if (valA < valB) {
